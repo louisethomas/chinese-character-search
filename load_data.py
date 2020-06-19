@@ -79,15 +79,11 @@ data = data.loc[:,['构件(Decomposition)','拼音(pinyin)']]
 
 # Definitions
 definitions = pd.concat([all_words.loc[:,'Definition'],all_char.loc[:,'Definition']]).drop_duplicates()
-print(definitions)
 
 
-
-print(all_char)
-print(all_words)
 
 # Search for similar characters
-Char = '想'
+Char = '孩'
 print("{}({}): {}\n".format(Char,all_char.loc[Char,'Pinyin'],all_char.loc[Char,'Definition']))
 
 CharComponent1 = all_char.loc[Char].Component1
@@ -98,3 +94,7 @@ CharComponent2 = all_char.loc[Char].Component2
 print("\nSecond component:\n{}({}): {}".format(CharComponent2,all_char.loc[CharComponent2,'Pinyin'],all_char.loc[CharComponent2,'Definition']))
 print(all_char.loc[(all_char.Component1 == CharComponent2) | (all_char.Component2 == CharComponent2) | (all_char.Component3 == CharComponent2) |(all_char.Component4 == CharComponent2) |(all_char.Component5 == CharComponent2)][['Pinyin','Definition','HSK']].dropna(thresh=2))
 
+print("\nCompounds:")
+print(all_char.loc[(all_char.Component1 == Char) | (all_char.Component2 == Char) | (all_char.Component3 == Char) |(all_char.Component4 == Char) |(all_char.Component5 == Char)][['Pinyin','Definition','HSK']].dropna(thresh=2))
+
+print(all_char.Component4.unique())
