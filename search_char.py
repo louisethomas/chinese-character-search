@@ -115,7 +115,7 @@ def word_info(input_text):
 
 # load data
 decomposition = pd.read_csv('data/character_decomposition.csv', index_col=0)
-freq = pd.read_json('data/char_freq.json', orient='index')
+freq = pd.read_json('data/optimizing_learning_order/char_freq.json', orient='index')
 dictionary = pd.read_csv('data/dictionary.csv', index_col=0)
 
 
