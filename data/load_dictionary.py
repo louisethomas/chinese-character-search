@@ -44,7 +44,7 @@ class Dict:
         return pinyin
 
 dict_dataframe = pd.DataFrame()
-with open('DATA_FILES/cedict_ts.u8') as file:
+with open('cedict_ts.u8') as file:
     line = file.readline()
     while line:
         if (line[0] != '#') and (line.find('surname') == -1):   #skip comment lines and surnames
@@ -60,4 +60,4 @@ with open('DATA_FILES/cedict_ts.u8') as file:
 
         line = file.readline()
 
-dict_dataframe.to_csv('DATA_FILES/dictionary.csv')
+dict_dataframe.to_csv('dictionary.csv')

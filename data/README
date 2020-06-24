@@ -1,0 +1,10 @@
+Dictionary for Chinese - English translations taken from CC-CEDICT.
+It is freely availible, and can be downloaded from:
+https://www.mdbg.net/chinese/dictionary?page=cc-cedict
+
+Decomposition of characters was taken from Wikipedia Commons:
+https://commons.wikimedia.org/wiki/Commons:Chinese_characters_decomposition
+
+Data for optimizing the learning order of characters was taken from: 
+Loach, James C., and Jinzhao Wang. "Optimizing the learning order of chinese characters using a novel topological sort algorithm." PloS one 11.10 (2016): e0163623.
+Yan, Xiaoyong, et al. "Efficient learning strategy of Chinese characters based on network approach." PloS one 8.8 (2013): e69745.

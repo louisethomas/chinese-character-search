@@ -1,3 +1,7 @@
+The following resources were taken from: 
+Loach, James C.; Wang, Jinzhao (2016): Optimizing the Learning Order of Chinese Characters Using a Novel Topological Sort Algorithm. PLOS ONE. Dataset. https://doi.org/10.1371/journal.pone.0163623
+
+
 char_strokes.json
 =================
  Taken from the UNIHAN database using PyNLPIR 0.4.4
