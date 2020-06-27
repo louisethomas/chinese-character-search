@@ -12,7 +12,7 @@ class Hanzi:
     def __init__(self, _character):
         self.hanzi = _character
         self.pinyin = dictionary.loc[_character, 'Pinyin']
-        self.definition = dictionary.loc[_character, 'Definition']
+    self.definition = dictionary.loc[_character, 'Definition']
 
     def print_line(self):
         """ Prints character, pinyin, and definition on one line.
