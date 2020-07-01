@@ -8,11 +8,12 @@ and definitions of each character.
 import pandas as pd
 import sys
 
+
 class Hanzi:
     def __init__(self, _character):
         self.hanzi = _character
         self.pinyin = dictionary.loc[_character, 'Pinyin']
-    self.definition = dictionary.loc[_character, 'Definition']
+        self.definition = dictionary.loc[_character, 'Definition']
 
     def print_line(self):
         """ Prints character, pinyin, and definition on one line.
@@ -113,20 +114,20 @@ def word_info(input_text):
 
 
 
+
 # load data
 decomposition = pd.read_csv('data/character_decomposition.csv', index_col=0)
 freq = pd.read_json('data/optimizing_learning_order/char_freq.json', orient='index')
 dictionary = pd.read_csv('data/dictionary.csv', index_col=0)
 
-
 # input character
 # input_text = '是可覅'
 input_text = str(sys.argv[1])
+print(input_text)
 
 if len(input_text) == 1:
     character_info(input_text)
 elif len(input_text) > 1:
     word_info(input_text)
-
 
 
