@@ -23,11 +23,13 @@ class Hanzi:
             # Loop through if multiple matches
             if isinstance(self.pinyin, pd.Series):
                 for num in range(self.pinyin.size):
-                    print(" {}{}({}): {}".format('  '*num, self.hanzi, self.pinyin[num], self.definition[num]))
+                    print(" {}({}): {}".format(self.hanzi, self.pinyin[num], self.definition[num]))
 
             # Print once if only one match
             elif isinstance(self.pinyin, str):
                 print(" {}({}): {}".format(self.hanzi, self.pinyin, self.definition))
+
+            print()   # print empty line for formatting 
         except:
             pass
 
@@ -113,12 +115,10 @@ def word_info(input_text):
         Hanzi(word).print_line()
 
 
-
-
 # load data
-decomposition = pd.read_csv('data/character_decomposition.csv', index_col=0)
-freq = pd.read_json('data/optimizing_learning_order/char_freq.json', orient='index')
-dictionary = pd.read_csv('data/dictionary.csv', index_col=0)
+decomposition = pd.read_csv(sys.path[0] + '/data/character_decomposition.csv', index_col=0)
+freq = pd.read_json(sys.path[0] + '/data/optimizing_learning_order/char_freq.json', orient='index')
+dictionary = pd.read_csv(sys.path[0] + '/data/dictionary.csv', index_col=0)
 
 # input character
 # input_text = '是可覅'
