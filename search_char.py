@@ -5,15 +5,15 @@ If it is a word with multiple characters, will return the hanzi, pinyin,
 and definitions of each character.
 """
 
-import pandas as pd
 import sys
+import pandas as pd
 
 
 class Hanzi:
     def __init__(self, _character):
         self.hanzi = _character
-        self.pinyin = dictionary.loc[_character, 'Pinyin']
-        self.definition = dictionary.loc[_character, 'Definition']
+        self.pinyin = dictionary.loc[_character, "Pinyin"]
+        self.definition = dictionary.loc[_character, "Definition"]
 
     def print_line(self):
         """ Prints character, pinyin, and definition on one line.
@@ -23,13 +23,17 @@ class Hanzi:
             # Loop through if multiple matches
             if isinstance(self.pinyin, pd.Series):
                 for num in range(self.pinyin.size):
-                    print(" {}({}): {}".format(self.hanzi, self.pinyin[num], self.definition[num]))
+                    print(
+                        " {}({}): {}".format(
+                            self.hanzi, self.pinyin[num], self.definition[num]
+                        )
+                    )
 
             # Print once if only one match
             elif isinstance(self.pinyin, str):
                 print(" {}({}): {}".format(self.hanzi, self.pinyin, self.definition))
 
-            print()   # print empty line for formatting 
+            print()  # print empty line for formatting
         except:
             pass
 
@@ -37,25 +41,29 @@ class Hanzi:
 class Character(Hanzi):
     def __init__(self, _character):
         super().__init__(_character)
-        self.component1 = decomposition['Character1'][_character]
-        self.component2 = decomposition['Character2'][_character]
+        self.component1 = decomposition["Character1"][_character]
+        self.component2 = decomposition["Character2"][_character]
 
     def find_compounds(self):
         """ Finds compounds of character """
         # Find all matching compounds
-        component_matches = decomposition.loc[(decomposition.Character1 == self.hanzi) | (decomposition.Character2 == self.hanzi)].index
+        component_matches = decomposition.loc[
+            (decomposition.Character1 == self.hanzi)
+            | (decomposition.Character2 == self.hanzi)
+        ].index
 
         # Return first 5 matches in order of usage frequency
-        matches=[]
-        _num_matches=0
+        matches = []
+        _num_matches = 0
         for _char in freq.index:
-            if ((_char in component_matches)
-                    and (_char != self.hanzi)
-                    and (_char != self.component1)
-                    and (_char != self.component2)
-               ):
+            if (
+                (_char in component_matches)
+                and (_char != self.hanzi)
+                and (_char != self.component1)
+                and (_char != self.component2)
+            ):
                 matches.append(_char)
-                _num_matches+=1
+                _num_matches += 1
             if _num_matches == 5:
                 break
         self.compounds = matches
@@ -65,36 +73,37 @@ class Character(Hanzi):
 def character_info(input_text):
     """ Prints information about the character """
     character_input = Character(input_text)
-    print('Character matches: ')
+    print("Character matches: ")
     character_input.print_line()
-    print('')
+    print("")
 
     # Search for character components
-    for column in ['Character1','Character2']:
+    for column in ["Character1", "Character2"]:
         component_str = decomposition[column][character_input.hanzi]
 
         # Use if statement to check components exist
-        if (component_str != character_input.hanzi
-                and component_str != '*'
-                and component_str in dictionary.Definition
-           ):
+        if (
+            component_str != character_input.hanzi
+            and component_str != "*"
+            and component_str in dictionary.Definition
+        ):
             # Print hanzi, pinyin and definition of component
             component = Character(decomposition[column][character_input.hanzi])
-            print('{}: {}'.format(column, component.hanzi))
+            print("{}: {}".format(column, component.hanzi))
             component.print_line()
-            print('')
+            print("")
 
             # Print compounds of component
-            print('Most frequent compounds of {}'.format(component.hanzi))
+            print("Most frequent compounds of {}".format(component.hanzi))
             component.find_compounds()
             for compound in component.compounds:
                 Hanzi(compound).print_line()
-            print('')
+            print("")
 
     # Print compounds of character
     character_input.find_compounds()
     if character_input.compounds:
-        print('Compounds of {}'.format(character_input.hanzi))
+        print("Compounds of {}".format(character_input.hanzi))
         for compound in character_input.compounds:
             Hanzi(compound).print_line()
 
@@ -104,11 +113,11 @@ def word_info(input_text):
     # Check if word exists
     try:
         word_input = Hanzi(input_text)
-        print('Word: ')
+        print("Word: ")
         word_input.print_line()
-        print('')
+        print("")
     except:
-        print('Word not found')
+        print("Word not found")
 
     # Print characters in word
     for word in input_text:
@@ -116,9 +125,13 @@ def word_info(input_text):
 
 
 # load data
-decomposition = pd.read_csv(sys.path[0] + '/data/character_decomposition.csv', index_col=0)
-freq = pd.read_json(sys.path[0] + '/data/optimizing_learning_order/char_freq.json', orient='index')
-dictionary = pd.read_csv(sys.path[0] + '/data/dictionary.csv', index_col=0)
+decomposition = pd.read_csv(
+    sys.path[0] + "/data/character_decomposition.csv", index_col=0
+)
+freq = pd.read_json(
+    sys.path[0] + "/data/optimizing_learning_order/char_freq.json", orient="index"
+)
+dictionary = pd.read_csv(sys.path[0] + "/data/dictionary.csv", index_col=0)
 
 # input character
 # input_text = '是可覅'
@@ -129,5 +142,3 @@ if len(input_text) == 1:
     character_info(input_text)
 elif len(input_text) > 1:
     word_info(input_text)
-
-
